@@ -5,7 +5,6 @@ import com.Dai18cm.controllers.PlayerController;
 import com.Dai18cm.controllers.PlayerDirection;
 import com.Dai18cm.controllers.SpermControllerManager;
 import com.Dai18cm.models.GameConfig;
-import com.Dai18cm.models.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -142,6 +141,8 @@ public class GameWindow extends Frame implements Runnable{
 
         SpermControllerManager.getInst().paint(backbuffeGraphics);
         playerController.paint(backbuffeGraphics);
+        backbuffeGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        backbuffeGraphics.drawString("Score: " + playerController.getScore() , 30 , 60);
 
         g.drawImage(backbufferImage, 0, 0,
                 GameConfig.DEFAULT_SCREEN_WIDTH,

@@ -11,6 +11,16 @@ import java.awt.*;
  */
 public class PlayerController extends SingleControllerWithHP implements Colliable { //Singleton
 
+    private int score = 0;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public final int SPEED = 10;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer, GameVecto gameVecto) {
@@ -70,6 +80,7 @@ public class PlayerController extends SingleControllerWithHP implements Colliabl
         if (c instanceof SpermController){
             Sperm sperm = (Sperm) c.getGameObject();
             sperm.setAlive(false);
+            score++;
         }
     }
 }
