@@ -1,9 +1,6 @@
 package com.Dai18cm;
 
-import com.Dai18cm.controllers.CollisionPool;
-import com.Dai18cm.controllers.PlayerController;
-import com.Dai18cm.controllers.PlayerDirection;
-import com.Dai18cm.controllers.SpermControllerManager;
+import com.Dai18cm.controllers.*;
 import com.Dai18cm.models.GameConfig;
 import com.Dai18cm.models.Player;
 
@@ -26,6 +23,8 @@ public class GameWindow extends Frame implements Runnable{
     Thread thread;
     Image backbufferImage;
     Image image_lv1;
+    Image image_lv2;
+    Image image_lv3;
     PlayerController playerController;
 
     public GameWindow(){
@@ -36,7 +35,9 @@ public class GameWindow extends Frame implements Runnable{
 
         try {
             backgroundImage = ImageIO.read(new File("resources/background.png"));
-            image_lv1 = ImageIO.read(new File("resources/huy_3.png"));
+            image_lv1 = ImageIO.read(new File("resources/huy_1.png"));
+            image_lv2 = ImageIO.read(new File("resources/huy_2.png"));
+            image_lv3 = ImageIO.read(new File("resources/huy_3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,6 +143,27 @@ public class GameWindow extends Frame implements Runnable{
 
         SpermControllerManager.getInst().paint(backbuffeGraphics);
         playerController.paint(backbuffeGraphics);
+        backbuffeGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        backbuffeGraphics.drawString("Score: " + playerController.getScore() , 30 , 60);
+        backbuffeGraphics.drawString("HP: " + Player.getHP(), 330, 60);
+
+        if (playerController.getScore() > 10 && playerController.getScore() <= 20) {
+            SpermControllerManager.levelChange(LevelType.LEVEL_2);
+            backbuffeGraphics.drawImage(image_lv2,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
+                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
+                    GameConfig.DEFAULT_SCREEN_HEIGHT,
+                    null
+            );
+        }
+
+        if (playerController.getScore() > 20) {
+            SpermControllerManager.levelChange(LevelType.LEVEL_3);
+            backbuffeGraphics.drawImage(image_lv3,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
+                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
+                    GameConfig.DEFAULT_SCREEN_HEIGHT,
+                    null
+            );
+        }
 
         g.drawImage(backbufferImage, 0, 0,
                 GameConfig.DEFAULT_SCREEN_WIDTH,
