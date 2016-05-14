@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class SpermController extends SingleController implements Colliable{
 
-    private static final int DEFAULT_SPEED = 5;
+    private static int DEFAULT_SPEED = 5;
 
     public SpermController(GameObject gameObject, GameDrawer gameDrawer, GameVecto gameVecto) {
         super(gameObject, gameDrawer, gameVecto);
@@ -21,6 +21,14 @@ public class SpermController extends SingleController implements Colliable{
     public SpermController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollisionPool.getInst().add(this);
+    }
+
+    public static int getDefaultSpeed() {
+        return DEFAULT_SPEED;
+    }
+
+    public static void setDefaultSpeed(int defaultSpeed) {
+        DEFAULT_SPEED = defaultSpeed;
     }
 
     @Override
@@ -44,7 +52,7 @@ public class SpermController extends SingleController implements Colliable{
 
         Sperm sperm = new Sperm(x, y, Sperm.DEFAULT_WIDTH, Sperm.DEFAULT_HEIGHT);
         GameVecto gameVecto = new GameVecto(0, DEFAULT_SPEED);
-        ImageDrawer imageDrawer = new ImageDrawer("resources/tinhtrung.png");
+        ImageDrawer imageDrawer = new ImageDrawer("resources/egg.png");
 
         spermController = new SpermController(sperm, imageDrawer, gameVecto);
 

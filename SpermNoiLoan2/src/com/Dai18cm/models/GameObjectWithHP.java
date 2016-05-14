@@ -37,7 +37,7 @@ public class GameObjectWithHP extends GameObject {
     }
 
     public static void decrease() {
-        HP--;
+        if(HP > 0) HP--;
     }
 
     public static int getHP() {
