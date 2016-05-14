@@ -143,6 +143,7 @@ public class GameWindow extends Frame implements Runnable{
 
         SpermControllerManager.getInst().paint(backbuffeGraphics);
         playerController.paint(backbuffeGraphics);
+        GiftControllerManager.getInst().paint(backbuffeGraphics);
         backbuffeGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         backbuffeGraphics.drawString("Score: " + playerController.getScore() , 30 , 60);
         backbuffeGraphics.drawString("HP: " + Player.getHP(), 330, 60);
@@ -179,6 +180,7 @@ public class GameWindow extends Frame implements Runnable{
                 CollisionPool.getInst().run();
                 playerController.run();
                 SpermControllerManager.getInst().run();
+                GiftControllerManager.getInst().run();
                 repaint();
                 Thread.sleep(GameConfig.DEFAULT_THREAD_DELAY);
             } catch (InterruptedException e) {

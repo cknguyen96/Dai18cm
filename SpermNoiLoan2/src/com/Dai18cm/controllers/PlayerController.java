@@ -12,7 +12,7 @@ import java.awt.*;
 public class PlayerController extends SingleControllerWithHP implements Colliable { //Singleton
 
     private int score = 0;
-
+    private int durationBuff;
     public int getScore() {
         return score;
     }
@@ -55,17 +55,39 @@ public class PlayerController extends SingleControllerWithHP implements Colliabl
     public static PlayerController getInst() {
         PlayerController playerController = null;
         if (inst == null) {
-            Player player = new Player(200, 500, Player.DEFAULT_WIDTH, Player.DEFAULT_HEIGHT);
+            Player player = new Player(200, 500, Player.DEFAULT_WIDTH , Player.DEFAULT_HEIGHT);
             ImageDrawer imageDrawer = new ImageDrawer("resources/Condom.png");
             playerController = new PlayerController(player, imageDrawer);
         }
         return playerController;
     }
 
+
+    public void inBuff(GiftType giftType){
+        switch (giftType){
+            case NONE:
+                break;
+            case BIGGER:
+                durationBuff = 5000;
+                ((Player)this.gameObject).setWidth(Player.DEFAULT_WIDTH + 40);
+                ((Player)this.gameObject).setHeight(Player.DEFAULT_HEIGHT + 40);
+                break;
+        }
+    }
+
+    public void outBuff(){
+        ((Player)this.gameObject).setWidth(Player.DEFAULT_WIDTH);
+        ((Player)this.gameObject).setHeight(Player.DEFAULT_HEIGHT);
+    }
     @Override
     public void run() {
         Rectangle rectangle = this.gameObject.getNextRect(this.gameVecto);
         if(GameConfig.getInst().isInScreen(rectangle) && this.getGameObject().isAlive() == true) {
+            if(durationBuff > 0 ) durationBuff -= GameConfig.getInst().getThreadDelay();
+            else {
+                durationBuff = 0;
+                outBuff();
+            }
             super.run();
         }
     }
