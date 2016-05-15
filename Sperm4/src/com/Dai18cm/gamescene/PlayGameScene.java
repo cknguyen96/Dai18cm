@@ -2,8 +2,7 @@ package com.Dai18cm.gamescene;
 
 import com.Dai18cm.Utils;
 import com.Dai18cm.controllers.*;
-import com.Dai18cm.models.GameConfig;
-import com.Dai18cm.models.Player;
+import com.Dai18cm.models.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,14 +15,13 @@ import java.util.Vector;
  * Created by Administrator on 5/15/2016.
  */
 public class PlayGameScene extends GameScene {
-    private Image image_lv1;
-    private Image image_lv2;
-    private Image image_lv3;
+//    private Image image_lv1;
+//    private Image image_lv2;
+//    private Image image_lv3;
     private PlayerController playerController;
     Image backgoundImage;
     private Vector<Controller> controllerVect;
     private GameConfig gameConfig;
-
     public PlayGameScene() {
 
         gameConfig = GameConfig.getInst();
@@ -34,9 +32,10 @@ public class PlayGameScene extends GameScene {
         controllerVect.add(this.playerController);
 
         this.backgoundImage = Utils.loadImage("resources/background1.png");
-        this.image_lv1 = Utils.loadImage("resources/huy_1.png");
-        this.image_lv2 = Utils.loadImage("resources/huy_2.png");
-        this.image_lv3 = Utils.loadImage("resources/huy_3.png");
+//        this.image_lv1 = Utils.loadImage("resources/huy_1.png");
+//        this.image_lv2 = Utils.loadImage("resources/huy_2.png");
+//        this.image_lv3 = Utils.loadImage("resources/huy_3.png");
+        this.targetImage = new TargetImage(this.targetType);
 
 
     }
@@ -47,6 +46,7 @@ public class PlayGameScene extends GameScene {
         for(Controller controller : controllerVect) {
             controller.run();
         }
+        if(playerController.getGameObject().isAlive() == false) changeGameScene(GameSceneType.GAME_OVER);
 //        controllerVect.get(0).run();
 //        controllerVect.get(1).run();
 //        playerController.run();
@@ -57,36 +57,37 @@ public class PlayGameScene extends GameScene {
         backbufferedGraphics.drawImage(this.backgoundImage, 0, 0,
                 GameConfig.getInst().getScreenWidth(), GameConfig.getInst().getScreenHeight(), null);
 
-        backbufferedGraphics.drawImage(image_lv1,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
-                GameConfig.DEFAULT_SCREEN_WIDTH/2,
-                GameConfig.DEFAULT_SCREEN_HEIGHT,
-                null
-        );
+//        backbufferedGraphics.drawImage(image_lv1,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
+//                GameConfig.DEFAULT_SCREEN_WIDTH/2,
+//                GameConfig.DEFAULT_SCREEN_HEIGHT,
+//                null
+//        );
 
         for(Controller controller : controllerVect){
             controller.paint(backbufferedGraphics);
         }
+        targetImage.paint(backbufferedGraphics);
         backbufferedGraphics.setFont(new Font("TimesRoman",Font.PLAIN, 20));
-        backbufferedGraphics.drawString("Score: " + playerController.getScore() , 30 , 60);
-        backbufferedGraphics.drawString("HP: " + Player.getHP(), 330, 60);
+        backbufferedGraphics.drawString("Score: " + Status.getScore() , 30 , 60);
+        backbufferedGraphics.drawString("HP: " + Status .getHP(), 330, 60);
 
-        if (playerController.getScore() > 20 && playerController.getScore() <= 40) {
-            SpermControllerManager.levelChange(LevelType.LEVEL_2);
-            backbufferedGraphics.drawImage(image_lv2,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
-                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
-                    GameConfig.DEFAULT_SCREEN_HEIGHT,
-                    null
-            );
-        }
-
-        if (playerController.getScore() > 40) {
-            SpermControllerManager.levelChange(LevelType.LEVEL_3);
-            backbufferedGraphics.drawImage(image_lv3,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
-                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
-                    GameConfig.DEFAULT_SCREEN_HEIGHT,
-                    null
-            );
-        }
+//        if (playerController.getScore() > 20 && playerController.getScore() <= 40) {
+//            SpermControllerManager.levelChange(LevelType.LEVEL_2);
+//            backbufferedGraphics.drawImage(image_lv2,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
+//                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
+//                    GameConfig.DEFAULT_SCREEN_HEIGHT,
+//                    null
+//            );
+//        }
+//
+//        if (playerController.getScore() > 40) {
+//            SpermControllerManager.levelChange(LevelType.LEVEL_3);
+//            backbufferedGraphics.drawImage(image_lv3,GameConfig.DEFAULT_SCREEN_WIDTH/2, 0,
+//                    GameConfig.DEFAULT_SCREEN_WIDTH/2,
+//                    GameConfig.DEFAULT_SCREEN_HEIGHT,
+//                    null
+//            );
+//        }
     }
 
     @Override

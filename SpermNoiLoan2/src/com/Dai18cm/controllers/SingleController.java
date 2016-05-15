@@ -30,6 +30,14 @@ public class SingleController implements Controller {
         return gameObject;
     }
 
+    public GameVecto getGameVecto() {
+        return gameVecto;
+    }
+
+    public void setGameVecto(GameVecto gameVecto) {
+        this.gameVecto = gameVecto;
+    }
+
     @Override
     public void paint(Graphics g) {
         this.gameDrawer.paint(this.gameObject, g);

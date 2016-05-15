@@ -52,7 +52,7 @@ public class SpermController extends SingleController implements Colliable{
 
         Sperm sperm = new Sperm(x, y, Sperm.DEFAULT_WIDTH, Sperm.DEFAULT_HEIGHT);
         GameVecto gameVecto = new GameVecto(0, DEFAULT_SPEED);
-        ImageDrawer imageDrawer = new ImageDrawer("resources/egg.png");
+        ImageDrawer imageDrawer = new ImageDrawer("resources/egg11.png");
 
         spermController = new SpermController(sperm, imageDrawer, gameVecto);
 
