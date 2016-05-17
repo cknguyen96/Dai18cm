@@ -13,7 +13,7 @@ public class PlayerController extends SingleController implements Colliable { //
 
     private int durationBuff;
     private GiftType current_giftType =  GiftType.NONE;
-    public final int SPEED = 10;
+    public final int SPEED = 15;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer, GameVecto gameVecto) {
         super(gameObject, gameDrawer, gameVecto);
