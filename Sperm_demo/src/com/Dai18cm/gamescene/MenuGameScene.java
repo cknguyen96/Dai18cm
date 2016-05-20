@@ -19,15 +19,18 @@ import java.io.IOException;
 /**
  * Created by Administrator on 5/15/2016.
  */
-public class MenuGameScene extends GameScene {
+public class MenuGameScene extends GameScene implements Runnable{
     Image backgoundImage;
     Image boyImage;
     Image girlImage;
-
+    Thread thread;
     public MenuGameScene() {
         this.backgoundImage = Utils.loadImage("resources/background_menu.png");
         boyImage = Utils.loadImage("resources/huy_1.png");
         girlImage = Utils.loadImage("resources/ngoctrinh_1.png");
+        Utils.playSound("resources/backgroundSound.wav", true);
+        thread = new Thread(this);
+        thread.start();
     }
     @Override
     public void run(Point mousePoint) {
@@ -80,7 +83,22 @@ public class MenuGameScene extends GameScene {
                 if(e.getLocationOnScreen().getX() > GameConfig.getInst().getScreenWidth()/2)
                     targetType = TargetType.GIRL;
                 changeGameScene(GameSceneType.PLAY);
+                Thread.interrupted();
                 break;
         }
+    }
+
+    @Override
+    public void run() {
+        while (true){
+            if(Thread.currentThread().isInterrupted()){
+//                Utils.playSound("resources/backgroundSound.wav", true);
+            }
+        }
+//        try {
+////            Thread.sleep(17);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

@@ -114,7 +114,6 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
 
             }
         });
-        Utils.playSound("resources/backgroundSound.wav", true);
         thread = new Thread(this);
         thread.start();
 
